@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1654116449181" clover="3.2.0">
+  <project timestamp="1654116449181" name="All files">
+    <metrics statements="24" coveredstatements="24" conditionals="8" coveredconditionals="7" methods="13" coveredmethods="13" elements="45" coveredelements="44" complexity="0" loc="24" ncloc="24" packages="1" files="7" classes="7"/>
+    <file name="App.js" path="/Users/niket/CareerFoundry/projects/MeetUp/src/App.js">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <line num="9" count="1" type="stmt"/>
+    </file>
+    <file name="CitySearch.js" path="/Users/niket/CareerFoundry/projects/MeetUp/src/CitySearch.js">
+      <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="8" count="1" type="stmt"/>
+      <line num="9" count="2" type="stmt"/>
+      <line num="10" count="2" type="stmt"/>
+      <line num="11" count="4" type="stmt"/>
+      <line num="13" count="2" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="19" count="1" type="stmt"/>
+      <line num="24" count="8" type="stmt"/>
+      <line num="29" count="6" type="stmt"/>
+    </file>
+    <file name="Event.js" path="/Users/niket/CareerFoundry/projects/MeetUp/src/Event.js">
+      <metrics statements="4" coveredstatements="4" conditionals="8" coveredconditionals="7" methods="1" coveredmethods="1"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="9" count="3" type="stmt"/>
+      <line num="10" count="3" type="stmt"/>
+      <line num="12" count="3" type="stmt"/>
+    </file>
+    <file name="EventList.js" path="/Users/niket/CareerFoundry/projects/MeetUp/src/EventList.js">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="7" count="1" type="stmt"/>
+      <line num="10" count="2" type="stmt"/>
+    </file>
+    <file name="NumberOfEvents.js" path="/Users/niket/CareerFoundry/projects/MeetUp/src/NumberOfEvents.js">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <line num="7" count="1" type="stmt"/>
+    </file>
+    <file name="api.js" path="/Users/niket/CareerFoundry/projects/MeetUp/src/api.js">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="9" count="1" type="stmt"/>
+      <line num="10" count="4" type="stmt"/>
+      <line num="11" count="2" type="stmt"/>
+      <line num="12" count="2" type="stmt"/>
+    </file>
+    <file name="mock-data.js" path="/Users/niket/CareerFoundry/projects/MeetUp/src/mock-data.js">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <line num="1" count="3" type="stmt"/>
+    </file>
+  </project>
+</coverage>
