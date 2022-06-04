@@ -1,17 +1,16 @@
 {
   "files": {
-    "main.css": "/MeetUp/static/css/main.073c9b0a.css",
-    "main.js": "/MeetUp/static/js/main.48976278.js",
+    "main.css": "/MeetUp/static/css/main.1f6e645d.css",
+    "main.js": "/MeetUp/static/js/main.f605fa94.js",
     "static/js/787.4b564826.chunk.js": "/MeetUp/static/js/787.4b564826.chunk.js",
     "service-worker.js": "/MeetUp/service-worker.js",
-    "static/media/logo.svg": "/MeetUp/static/media/logo.103b5fa18196d5665a7e12318285c916.svg",
     "index.html": "/MeetUp/index.html",
-    "main.073c9b0a.css.map": "/MeetUp/static/css/main.073c9b0a.css.map",
-    "main.48976278.js.map": "/MeetUp/static/js/main.48976278.js.map",
+    "main.1f6e645d.css.map": "/MeetUp/static/css/main.1f6e645d.css.map",
+    "main.f605fa94.js.map": "/MeetUp/static/js/main.f605fa94.js.map",
     "787.4b564826.chunk.js.map": "/MeetUp/static/js/787.4b564826.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.48976278.js"
+    "static/css/main.1f6e645d.css",
+    "static/js/main.f605fa94.js"
   ]
 }
