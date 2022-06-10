@@ -40,13 +40,14 @@ input[type="number"] {
   width: 250px;
 }
 
-.CitySearch {
+.citysearch {
   display: flex;
   flex-direction: column;
   flex-basis: 300px;
   max-width: 300px;
   margin: auto;
   position: relative;
+  
 }
 
 .suggestions {
@@ -128,9 +129,13 @@ input[type="number"] {
   font-family: sans-serif;
 }
 
-.Alert {
+/* .Alert {
   position: fixed;
   top: 20px;
+} */
+.Alert p{
+  border-radius: 3px;
+  margin: 10px 0px;
 }
 
 .data-vis-wrapper {
