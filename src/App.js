@@ -7,6 +7,7 @@ import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import './nprogress.css';
 import { OfflineAlert } from './Alert';
 import WelcomeScreen from './WelcomeScreen';
+import EventGenre from './EventGenre';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 class App extends Component {
@@ -85,15 +86,18 @@ class App extends Component {
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <NumberOfEvents updateEvents={this.updateEvents} numberOfEvents={this.state.numberOfEvents} />
         <h4>Events in each city</h4>
-        <ResponsiveContainer height={400} >
-          <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="category" dataKey="city" name="city" />
-            <YAxis type="number" dataKey="number" name="number of events" />
-            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-            <Scatter data={this.getData()} fill="#8884d8" />
-          </ScatterChart>
-        </ResponsiveContainer>
+        <div className='data-vis-wrapper'>
+          <EventGenre events={this.state.events} />
+          <ResponsiveContainer height={400} >
+            <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis type="category" dataKey="city" name="city" />
+              <YAxis type="number" dataKey="number" name="number of events" />
+              <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+              <Scatter data={this.getData()} fill="#8884d8" />
+            </ScatterChart>
+          </ResponsiveContainer>
+        </div>
         <EventList events={this.state.events} />
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
       </div>
