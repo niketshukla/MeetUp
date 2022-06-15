@@ -24,7 +24,7 @@ const EventGenre = ({ events }) => {
                     cx='50%'
                     cy='50%'
                     labelLine={false}
-                    outerRadius={80}
+                    outerRadius={180}
                     fill="#8884d8"
                     dataKey="value"
                     label={({ name, percent }) => `${name} - ${(percent * 100).toFixed(0)}%`} >
