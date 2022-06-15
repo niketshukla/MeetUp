@@ -1,82 +1,200 @@
-# MeetUp
-## Overview
-Meet app is React app coded using a test-driven development process. The app uses the Google Calendar API to fetch upcoming events from a a CareerFoundry events calendar.  
+# Meet-app
 
-To connect to the api, the app makes use of Amazon Web Service's Lambda service to perform authentication. Because this app is in test mode, a new user must have their gmail account added to my test users lists from my Google Console. If you would like to have access to the app, please reach out to me so I can grant you access. The new user will be redirected to the Google Oauth authentication screen where they must confirm that they want to give permissions to the Google Calendar API. One permission is granted, the user is redirected to the application.
+## Description
+The goal of this project is to build a serverless, progressive web application (PWA) with React using a test-driven development (TDD) technique. The application uses the Google Calendar API to fetch upcoming events.
 
-The app is a single page app with two inputs, one for a city name, and one for a number of events to show. Simply input your desired city and select it from the suggestions dropdown, then narrow down or increase the number of events shown with using the number input. Clicking on the "more details" button for an event will display a description and URL for the event.
+### What technology did I use and why?
 
-## AWS Lambda functions
-The code for the AWS Lambda functions is stored in the auth-server folder. The serverless.yml contains some minimal configuration for the functions, which are contained in the handler.js file. This project makes use of three functions with AWS Lambda:
-- `getAuthURL`
-- `getAccessToken`
-- `getCalendarEvents`
+For the frontend of my femmovies application I chose **React**. The main reasons are
+* type of application: I need a library helping me build the UI of my app. React is suited best for the view side of the mvc approach and its virtual DOM ensures faster rendering of views
+* scope: The component-based nature of React allows me to increase the scope of my web application with little to no performance issues or concerns about entropy.
+* good documentation: for a beginner like me, it is important that the tools I use are well documented, so that I can understand the different components I work with. Another factor in my decision was, that it is kept up to date. In case of a library developed and maintained by Facebook, that is not a problem.
+* popularity: React is in high demand at the moment. This can be seen in job ad, the stars on GitHub (187k) as well as the contributions to stack overflow. This support in the developer community ensures that Il will eventually find solutions when troubleshooting.
 
-### getAuthURL (Step 1)
-`https://hv2altwv0j.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url`  
-`getAuthURL` generates a Url for oAuth2 authentication with Google which includes a code to be used with the getAccessToken function.
+* mobile version: with its associated ecosystem of tools, React is also a good springboard for my next project, where I want to use React Native for a mobile application. So getting familiar with React first is valuable.
 
-### getAccessToken (Step 2)
-`https://hv2altwv0j.execute-api.us-east-1.amazonaws.com/dev/api/token/{code}`  
-`getAccessToken` is called using the code from getAuthURL in place of "{code}" in the URL. The function returns an access token which may be used to gain access to the Google Calendar API.
 
-### getCalendarEvents (Step 3)
-`https://hv2altwv0j.execute-api.us-east-1.amazonaws.com/dev/api/get-calendar-events/{accessToken}`
-`getCalendarEvents` is called using the access token obtained from getAccessToken in place of "{accessToken}". A sucessful response will include a JSON object containing a list of event objects from the CareerFoundry events calendar. These events are then filtered and trimmed within the main part of meet app.
+I created the application using the **Create React App** boilerplate, enabling the pwa template to transfer the app into a PWA in the development process:
+```bash
+npx create-react-app meet --template cra-template-pwa --use-npm
+```
 
-### Bringing Google Calendar API data into the meet app
-the `api.js` contains functions used to call the AWS Lambda functions and send the events data to the app. A call to `getEvents()` will begin by checking to see if the user already has a valid access token. if so, `getCalendarEvents` is called (Step 3) and the events are sent to the app. If there is no valid access token, the app checks to see if there is a code saved. If so, we can start from Step 2. If there is no access token or code, the user is redirected to the Google oAuth screen (Step 1).  
 
-Regardless of which step the `getEvents()` begins from, eventually a list of event objects and a list of locations (extracted from the event objects) is sent back to the app from the `api.js` file.
+### Key features
 
-## User interface
-The `<App>` element calls `getEvents()` from with its `componentDidMount()` method. The events and locations returned by the function call are stored in the state. The `<App>` has the child components `<CitySearch>`, `<NumberOfEvents>`, and `<EventList>`. City queries are made from the `<CitySearch>` element. The displayed number of events is changed from the `<NumberOfEvents>` element. The events stored in the apps's state are sent to `<EventList>` to be rendered.
+* Filter events by city.
+* Show/hide event details.
+* Specify number of events.
+* Use the app when offline.
+* Add an app shortcut to the home screen.
+* View a chart showing the number of upcoming events by city.
 
-The user interface is made responsive using CSS grid with media queries altering the width of the event cards and number of columns based on the screen size.
+### User stories and tesing scenarios
+* As a user, I would like to be able to show/hide event details so that I can see more/less information about an event. 
+1.	Scenario 1: An event element is collapsed by default
+Given the main page is open
+When a user search for a city and the events are loaded
+Then the event element details will be hidden
+2.	Scenario 2: User can expand an event to see its details
+Given the list of events has been loaded
+When user clicks on “Show details” button for an event
+Then the event element will be expanded to show the event details
+3.	Scenario 3: User can collapse an event to hide its details
+Given the “Show details” button for an event has been clicked and the details are expanded
+When user clicks on “Hide details” button on that event
+Then the event element will collapse again, hiding the details
 
-## Testing
-### Unit Testing and Integration Testing
+* As a user, I would like to be able to specify the number of events I want to view in the app so that I can see more or fewer events in the events list at once. 
+1.	Scenario 1: When user hasn’t specified a number, 32 is the default number
+Given a user has chosen the city they want to see events for
+When the user doesn’t specify a number of events they want to view
+Then the default number will be set to 32
+2.	Scenario 2: User can change the number of events they want to see
+Given a user has chosen the city they want to see events for
+When they type a number into the box “Number of Events”
+Then the according number of events will load for the respective city
+
+* As a user, I would like to be able to use the app when offline so that I can see the events I viewed the last time I was online. 
+1.	Scenario 1: Show cached data when there’s no internet connection
+Given a user has used the app before
+When they access the website offline
+Then the events they viewed previously will be shown
+2.	Scenario 2: Show error when user changes the settings (city, time range)
+Given a user accesses the website offline
+When they change the setting such as city or time range
+Then an error will be shown
+
+* As a user, I would like to be able to see a chart showing the upcoming events in each city so that I know what events are organized in which city. 
+1.	Scenario 1: Show a chart with the number of upcoming events in each city
+Given a user has chosen a city
+When the list of events is shown
+Then on top of the list a chart that visualizes the type of upcoming events will be shown
+
+
+### What challenges did I face, what did I learn? 
+* The recommended testing utility for React, Enzyme, doesn't support React versions from 17 upward. There exists an unofficial adapter for version 17, however, there is no adapter for React v.18. Therefore, I had to downgrade my React version to v.17 to still be able to work with Enzyme.
+
+* You can use end-to-end tesing to create videos for tutorials or customer presentations
+
+* When using the creat react app biolerplate, the components are created as .js files (instead of .jsx)
+
+## How to install and run the project ...
+
+### ... as a developer, who wants to work with the project
+1. Clone or download repository ...
+```bash
+git clone https://github.com/niketshukla/MeetUp.git
+```
+
+2. Connect to your github pages 
+Follow the instructions provided by github: https://pages.github.com 
+
+3. Edit homepage address in package.json to fit to your github account
+
+4. To run app on localhost:
+```bash
+npm run start
+```
+
+5. To push changes to github pages
+```bash
+npm run deploy
+```
+
+### ... to access the already hostet the live app:
+https://niketshukla.github.io/MeetUp/
+
+## Technical Requirements (according to project brief)
+* React application
+* Built using TDD technique
+* Use the Google Calendar API and OAuth2 authentication flow.
+* Use use serverless functions (AWS lambda is preferred) for the authorization server instead of using a traditional server
+* Work offline or in slow network conditions with the help of a service worker.
+* Use React axios and async/await.
+* Implement an alert system using an OOP approach to show information to the user.
+* Make use of data visualization using the recharts library.
+* Be monitored using an online monitoring tool.
+
+
+## Development Process for the meet-app
+
+### Create test scenarios for each user story
+__See above__
+
+### Create serverless functions to adhere to Google OAuth2 authentication flow
+#### Create a Oauth Consumer
+1. Create new project in Google's API console
+2. Enable Google Calendar API
+3. Create credentials
+4. Add scopes
+5. Add origin and URI to app's domain
+6. Add test users
+7. Download credentials (client_secret_.json file)
+
+#### Verify app's domain
+Download the HTML verification file from Google developer console and add to /public folder in app
+
+#### Create a serverless service
+1. Install serverless toolkit: 
+```bash
+npm install -g serverless
+```
+2. Set up server directory:
+```bash
+# Create a new serverless service/project using aws-nodejs
+serverless create --template aws-nodejs --path auth-server
+# Jump into the newly created directory
+cd auth-server
+# Then create a package.json
+npm init
+# You can simply press the Enter key through all the options here.
+```
+3. Add config.json to .gitignore file
+
+#### Configure AWS credentials
+1. Go to AWS console
+2. Navigate to 'My security credentials'
+3. Create new access key & download file
+4. Configure credentials for serverless:
+```bash
+serverless config credentials --provider aws --key ACCESS_KEY_ID --secret SECRET_ACCESS_KEY
+```
+
+#### Add secrets to config.json file
+1. Within server directory, create config.json file
+2. Add credentials stored in client_secret_.json file to config.file
+3. Add Calendar ID of calendar that will be used in application to config.file
+
+#### Set up serverless file
+
+#### Install Google APIs package 
+```bash
+npm install googleapis@^59.0.0 --save
+```
+
+#### Set up handler.js file with serverless functions
+
+#### Deploy serverless
+```bash
+serverless deploy
+```
+
+#### Obtain serverless API endpoints
+```bash
+serverless info
+```
+
+### Testing
+#### Unit Testing and Integration Testing
 Unit testing and integration testing are performed using Jest. Test files are contained in the __tests__ subdirectory. 
-### Acceptance testing
+#### Acceptance testing
 Acceptance test is performed using [Jest-Cucumber](https://www.npmjs.com/package/jest-cucumber). Jest-Cucumber was selected over the standard Cucumber because it allows for writing tests using similar syntax to our unit testing and integration testing with Jest. Test and feature files are contained in the 'features' subdirectory.
 
-### End-to-end testing
+#### End-to-end testing
 End-to-end testing for Feature 2: Show/hide an event's details was performed using [Puppeteer](https://github.com/puppeteer/puppeteer#usage).
 
-## User Stories and Requirements
-### FEATURE 1: FILTER EVENTS BY CITY
-**User Story**: As a user, I should be able to filter the events by city so that I can see the list of events that take place near that city.  
+### Transform applications into PWA
+* In src/index.js file, register service worker by changing from serviceWorkerRegistration.unregister() to serviceWorkerRegistration.register()
+* Add app infos to manifest.json
 
-**Scenario 1**: Given the user hasn’t searched for any city, when the user opens the app, then the user should see a list of all upcoming events. 
-
-**Scenario 2**: Given the main page is open, when the user starts typing in the city textbox, then the user should see a list of cities (suggestions) that match what they’ve typed.  
-
-**Scenario 3**: Given the user was typing “Berlin” in the city textbox, and the list of suggested cities is showing, when the user selects a city (eg., “Berlin, Germany”) from the list, then their city should be changed to that city (i.e., “Berlin, Germany”), and the user should receive a list of upcoming events in that city.  
-
-### FEATURE 2: SHOW/HIDE AN EVENT’S DETAILS
-User Story: As a user, I should be able to hide or show event details so that I can see more or less about an event.  
-
-**Scenario 1**: Given that the main page is open, when the user has not clicked on an event, each event element should be collapsed.  
-
-**Scenario 2**: Given that an event element is collapsed, when the user clicks on an event, the event element should expand.  
-
-**Scenario 3**: Given that an event element is expanded, when the user clicks on an event, the event element should collapse.  
-
-### FEATURE 3: SPECIFY NUMBER OF EVENTS
-**User Story**: As a user, I should be able to specify the number of events so that I can see a specific number of events.
-
-**Scenario 1**: Given that the user has not specified a number of events to show, when the user loads the data, 32 events should be displayed.
-
-**Scenario 2**: Given the main page is open, when the user types a number into the number of events textbox, the number of events displayed should match the number input by the user, unless there are fewer events than the specified number.
-
-### FEATURE 4: USE THE APP WHEN OFFLINE
-**User Story**: As a user, I should be able to use the app while offline so that I can see the events I was viewing the last time I was connected to the internet.
-
-**Scenario 1**: Given that there is no internet connection and the user has cached data, when the user loads the application, the user should see the events they saw the last time they were connected to the internet.
-
-**Scenario 2**: Given that there is no internet connection, when the user changes the settings (city, time range), the user should see an error message warning them that their search cannot be performed because they are offline.
-
-### FEATURE 5: DATA VISUALIZATION
-**User Story**: As a user, I should be able to see a chart showing the number and type of upcoming events in each city so that I can see what types of events are happening in each city.
-
-**Scenario 1**: Given that the main page is open, when the user wants to see the upcoming events by city, the user should see a pie chart displaying the types of events and a bar chart displaying the number of events in each city.
+### Add data visualization using Recharts
