@@ -70,14 +70,6 @@ Given a user has chosen a city
 When the list of events is shown
 Then on top of the list a chart that visualizes the type of upcoming events will be shown
 
-
-### What challenges did I face, what did I learn? 
-* The recommended testing utility for React, Enzyme, doesn't support React versions from 17 upward. There exists an unofficial adapter for version 17, however, there is no adapter for React v.18. Therefore, I had to downgrade my React version to v.17 to still be able to work with Enzyme.
-
-* You can use end-to-end tesing to create videos for tutorials or customer presentations
-
-* When using the creat react app biolerplate, the components are created as .js files (instead of .jsx)
-
 ## How to install and run the project ...
 
 ### ... as a developer, who wants to work with the project
@@ -107,13 +99,13 @@ https://niketshukla.github.io/MeetUp/
 ## Technical Requirements (according to project brief)
 * React application
 * Built using TDD technique
-* Use the Google Calendar API and OAuth2 authentication flow.
+* Use the Google Calendar API and OAuth2 authentication flow
 * Use use serverless functions (AWS lambda is preferred) for the authorization server instead of using a traditional server
-* Work offline or in slow network conditions with the help of a service worker.
-* Use React axios and async/await.
-* Implement an alert system using an OOP approach to show information to the user.
-* Make use of data visualization using the recharts library.
-* Be monitored using an online monitoring tool.
+* Work offline or in slow network conditions with the help of a service worker
+* Use React axios and async/await
+* Implement an alert system using an OOP approach to show information to the user
+* Make use of data visualization using the recharts library
+* Be monitored using an online monitoring tool
 
 
 ## Development Process for the meet-app
