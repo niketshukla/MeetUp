@@ -4,7 +4,14 @@
 	height: 100%;
 	top: 0;
   left: 0;
-	background: white;
+	background: aliceblue;
+}
+.welcomeWrapper{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .login-button {
